@@ -51,20 +51,20 @@ def find_pips(data: np.array, n_pips: int, dist_measure: int):
     return pips_x, pips_y
 
 
+if __name__ == "__main__":
+    data = pd.read_csv('BTCUSDT86400.csv')
+    data['date'] = data['date'].astype('datetime64[s]')
+    data = data.set_index('date')
 
-data = pd.read_csv('BTCUSDT86400.csv')
-data['date'] = data['date'].astype('datetime64[s]')
-data = data.set_index('date')
+    i = 1198
+    x = data['close'].iloc[i-40:i].to_numpy()
+    pips_x, pips_y = find_pips(x, 5, 2)
 
-i = 1198
-x = data['close'].iloc[i-40:i].to_numpy()
-pips_x, pips_y = find_pips(x, 5, 2)
+    pd.Series(x).plot()
+    for i in range(5):
+        plt.plot(pips_x[i], pips_y[i], marker='o', color='red')
 
-pd.Series(x).plot()
-for i in range(5):
-    plt.plot(pips_x[i], pips_y[i], marker='o', color='red')
-
-plt.show()
+    plt.show()
 
 
 
