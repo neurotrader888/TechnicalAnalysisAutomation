@@ -1,2 +1,2 @@
 # TechnicalAnalysisAutomation
-Python function for automating technical analysis. 
+Python functions for automating technical analysis. 
