@@ -52,17 +52,18 @@ def directional_change(close: np.array, high: np.array, low: np.array, sigma: fl
 
     return tops, bottoms
 
-data = pd.read_csv('BTCUSDT3600.csv')
-data['date'] = data['date'].astype('datetime64[s]')
-data = data.set_index('date')
-tops, bottoms = directional_change(data['close'].to_numpy(), data['high'].to_numpy(), data['low'].to_numpy(), 0.03)
+if __name__ == '__main__':
+    data = pd.read_csv('BTCUSDT3600.csv')
+    data['date'] = data['date'].astype('datetime64[s]')
+    data = data.set_index('date')
+    tops, bottoms = directional_change(data['close'].to_numpy(), data['high'].to_numpy(), data['low'].to_numpy(), 0.02)
 
-pd.Series(data['close'].to_numpy()).plot()
-idx = data.index
-for top in tops:
-    plt.plot(top[1], top[2], marker='o', color='green', markersize=4)
+    pd.Series(data['close'].to_numpy()).plot()
+    idx = data.index
+    for top in tops:
+        plt.plot(top[1], top[2], marker='o', color='green', markersize=4)
 
-plt.show()
+    plt.show()
 
 
 
