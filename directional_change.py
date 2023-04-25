@@ -52,6 +52,38 @@ def directional_change(close: np.array, high: np.array, low: np.array, sigma: fl
 
     return tops, bottoms
 
+def get_extremes(ohlc: pd.DataFrame, sigma: float):
+    tops, bottoms = directional_change(ohlc['close'], ohlc['high'], ohlc['low'], sigma)
+    tops = pd.DataFrame(tops, columns=['conf_i', 'ext_i', 'ext_p'])
+    bottoms = pd.DataFrame(bottoms, columns=['conf_i', 'ext_i', 'ext_p'])
+    tops['type'] = 1
+    bottoms['type'] = -1
+    extremes = pd.concat([tops, bottoms])
+    extremes = extremes.set_index('conf_i')
+    extremes = extremes.sort_index()
+    return extremes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     data = pd.read_csv('BTCUSDT3600.csv')
     data['date'] = data['date'].astype('datetime64[s]')
